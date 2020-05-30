@@ -9,7 +9,8 @@
     "prepackage": "npm run build && rm -rf .package && mkdir .package",
     "package": "(cd .dist && zip -r ../.package/package.zip *)",
     "deploy": "(cd infrastructure && terraform apply)",
-    "deploy:approve": "(cd infrastructure && terraform apply -auto-approve)"
+    "deploy:approve": "(cd infrastructure && terraform apply -auto-approve)",
+    "destroy:approve": "(cd infrastructure && terraform destroy -auto-approve)"
   },
   "devDependencies": {
     "typescript": "^3.9.3"
