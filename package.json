@@ -1,0 +1,17 @@
+{
+  "name": "phaser-multiplayer-spike-api",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "build": "rm -rf .dist && npx tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepackage": "npm run build && rm -rf .package && mkdir .package",
+    "package": "(cd .dist && zip -r ../.package/package.zip *)",
+    "deploy": "(cd infrastructure && terraform apply)",
+    "deploy:approve": "(cd infrastructure && terraform apply -auto-approve)"
+  },
+  "devDependencies": {
+    "typescript": "^3.9.3"
+  }
+}
