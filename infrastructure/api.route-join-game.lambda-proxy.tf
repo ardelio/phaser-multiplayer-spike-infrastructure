@@ -28,6 +28,7 @@ resource "aws_lambda_function" "join_game_route_proxy" {
   environment {
     variables = {
       API_ENDPOINT = replace(aws_apigatewayv2_stage.dev_stage.invoke_url, "/^wss/", "https")
+      DYNAMOD_DB_TABLE_NAME = aws_dynamodb_table.players.id
     }
   }
 
@@ -47,4 +48,9 @@ resource "aws_iam_role_policy_attachment" "join_game_route_lambda_logs" {
 resource "aws_iam_role_policy_attachment" "join_game_route_lambda_execute_api" {
   role       = aws_iam_role.role_for_join_game_route_proxy.name
   policy_arn = aws_iam_policy.lambda_execute_api.arn
+}
+
+resource "aws_iam_role_policy_attachment" "join_game_route_lambda_players_db" {
+  role       = aws_iam_role.role_for_join_game_route_proxy.name
+  policy_arn = aws_iam_policy.lambda_players_db.arn
 }

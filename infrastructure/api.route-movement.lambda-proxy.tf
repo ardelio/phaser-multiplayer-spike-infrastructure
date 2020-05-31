@@ -25,6 +25,13 @@ resource "aws_lambda_function" "movement_route_proxy" {
   role             = aws_iam_role.role_for_movement_route_proxy.arn
   source_code_hash = filebase64sha256("../.package/package.zip")
 
+  environment {
+    variables = {
+      API_ENDPOINT = replace(aws_apigatewayv2_stage.dev_stage.invoke_url, "/^wss/", "https")
+      DYNAMOD_DB_TABLE_NAME = aws_dynamodb_table.players.id
+    }
+  }
+
   runtime = "nodejs12.x"
 }
 
@@ -36,4 +43,14 @@ resource "aws_cloudwatch_log_group" "movement_route_log_group" {
 resource "aws_iam_role_policy_attachment" "movement_route_lambda_logs" {
   role       = aws_iam_role.role_for_movement_route_proxy.name
   policy_arn = aws_iam_policy.lambda_logging.arn
+}
+
+resource "aws_iam_role_policy_attachment" "movement_route_lambda_execute_api" {
+  role       = aws_iam_role.role_for_movement_route_proxy.name
+  policy_arn = aws_iam_policy.lambda_execute_api.arn
+}
+
+resource "aws_iam_role_policy_attachment" "movement_route_lambda_players_db" {
+  role       = aws_iam_role.role_for_movement_route_proxy.name
+  policy_arn = aws_iam_policy.lambda_players_db.arn
 }
