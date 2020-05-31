@@ -9,6 +9,11 @@ resource "aws_apigatewayv2_stage" "dev_stage" {
   name        = "dev"
   auto_deploy = true
 
+  access_log_settings {
+    destination_arn = aws_cloudwatch_log_group.websocket_api_log_group.arn
+    format          = jsonencode({ "requestId" : "$context.requestId", "ip" : "$context.identity.sourceIp", "caller" : "$context.identity.caller", "user" : "$context.identity.user", "requestTime" : "$context.requestTime", "eventType" : "$context.eventType", "routeKey" : "$context.routeKey", "status" : "$context.status", "connectionId" : "$context.connectionId" })
+  }
+
   default_route_settings {
     logging_level          = "ERROR"
     throttling_burst_limit = 5
@@ -54,10 +59,17 @@ resource "aws_iam_role_policy" "lambda_execution" {
         ],
         "Effect": "Allow",
         "Resource": [
+          "${aws_lambda_function.connection_id_route_proxy.arn}",
+          "${aws_lambda_function.join_game_route_proxy.arn}",
           "${aws_lambda_function.movement_route_proxy.arn}"
         ]
       }
     ]
   }
   EOF
+}
+
+resource "aws_cloudwatch_log_group" "websocket_api_log_group" {
+  name              = "/aws/apigateway/${local.stack_name}-api-${local.stack_id}"
+  retention_in_days = 7
 }

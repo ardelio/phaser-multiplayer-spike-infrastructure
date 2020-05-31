@@ -28,12 +28,12 @@ resource "aws_lambda_function" "movement_route_proxy" {
   runtime = "nodejs12.x"
 }
 
-resource "aws_cloudwatch_log_group" "log_group" {
+resource "aws_cloudwatch_log_group" "movement_route_log_group" {
   name              = "/aws/lambda/${local.stack_name_prefix}-movement-route-proxy-${local.stack_id}"
   retention_in_days = 7
 }
 
-resource "aws_iam_role_policy_attachment" "lambda_logs" {
+resource "aws_iam_role_policy_attachment" "movement_route_lambda_logs" {
   role       = aws_iam_role.role_for_movement_route_proxy.name
   policy_arn = aws_iam_policy.lambda_logging.arn
 }

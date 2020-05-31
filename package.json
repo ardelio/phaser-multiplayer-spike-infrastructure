@@ -7,12 +7,16 @@
     "build": "rm -rf .dist && npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepackage": "npm run build && rm -rf .package && mkdir .package",
-    "package": "(cd .dist && zip -r ../.package/package.zip *)",
+    "package": "(cp package.json package-lock.json .dist/ && cd .dist && npm i --only=prod && zip -r ../.package/package.zip *)",
     "deploy": "(cd infrastructure && terraform apply)",
     "deploy:approve": "(cd infrastructure && terraform apply -auto-approve)",
     "destroy:approve": "(cd infrastructure && terraform destroy -auto-approve)"
   },
   "devDependencies": {
+    "@types/node": "^14.0.6",
     "typescript": "^3.9.3"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.686.0"
   }
 }
