@@ -2,7 +2,7 @@
 module "connection_id_route_lambda_proxy" {
   source = "./modules/lambda-proxy"
 
-  name            = "connection-id"
+  name             = "connection-id"
   stack_details    = local.stack_details
   tags             = local.tags
   websocket_api_id = aws_apigatewayv2_api.websocket_api.id

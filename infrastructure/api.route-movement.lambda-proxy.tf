@@ -5,7 +5,7 @@ module "movement_route_lambda_proxy" {
     API_ENDPOINT          = replace(aws_apigatewayv2_stage.dev_stage.invoke_url, "/^wss/", "https")
     DYNAMOD_DB_TABLE_NAME = aws_dynamodb_table.players.id
   }
-  name            = "movement"
+  name             = "movement"
   stack_details    = local.stack_details
   tags             = local.tags
   websocket_api_id = aws_apigatewayv2_api.websocket_api.id

@@ -1,4 +1,7 @@
-variable environment_variables {
+variable "default_route" {
+  default = false
+}
+variable "environment_variables" {
   default = {
     NULL = "null"
   }

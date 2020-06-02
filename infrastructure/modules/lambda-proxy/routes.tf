@@ -1,6 +1,6 @@
 resource "aws_apigatewayv2_route" "route" {
   api_id    = var.websocket_api_id
-  route_key = replace(var.name, "-", "_")
+  route_key = "${var.default_route ? "$": ""}${replace(var.name, "-", "_")}"
   target    = "integrations/${aws_apigatewayv2_integration.route.id}"
 }
 
