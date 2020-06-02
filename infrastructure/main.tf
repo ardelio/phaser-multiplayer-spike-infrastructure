@@ -6,13 +6,15 @@ resource "random_string" "stack_id" {
 data "aws_caller_identity" "current" {}
 
 locals {
-  account_id        = data.aws_caller_identity.current.account_id
-  region            = "ap-southeast-2"
-  stack_id          = lower(random_string.stack_id.result)
-  stack_name        = "phaser-multiplayer-spike"
-  stack_name_prefix = "pms"
+  account_id = data.aws_caller_identity.current.account_id
+  region     = "ap-southeast-2"
+  stack_details = {
+    stack_id          = lower(random_string.stack_id.result)
+    stack_name        = "phaser-multiplayer-spike"
+    stack_name_prefix = "pms"
+  }
   tags = {
-    Application : local.stack_name
-    StackID : local.stack_id
+    Application : local.stack_details.stack_name
+    StackID : local.stack_details.stack_id
   }
 }
