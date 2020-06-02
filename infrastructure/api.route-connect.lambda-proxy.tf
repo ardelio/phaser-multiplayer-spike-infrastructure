@@ -21,7 +21,7 @@ resource "aws_iam_role_policy_attachment" "connect_route_lambda_players_db_read"
   policy_arn = aws_iam_policy.lambda_players_db_read.arn
 }
 
-resource "aws_iam_role_policy_attachment" "join_game_route_lambda_players_db_write" {
+resource "aws_iam_role_policy_attachment" "connect_route_lambda_players_db_write" {
   role       = module.connect_route_lambda_proxy.role_name
   policy_arn = aws_iam_policy.lambda_players_db_write.arn
 }
