@@ -19,16 +19,16 @@ resource "aws_iam_policy" "lambda_execute_api" {
 EOF
 }
 
-resource "aws_iam_policy" "lambda_players_db_read" {
-  name        = "${local.stack_details.stack_name_prefix}-lambda-players-db-read-${local.stack_details.stack_id}"
+resource "aws_iam_policy" "lambda_connections_db_read" {
+  name        = "${local.stack_details.stack_name_prefix}-lambda-connections-db-read-${local.stack_details.stack_id}"
   path        = "/"
-  description = "IAM policy for reading the players DB from lambda"
+  description = "IAM policy for reading the connections DB from lambda"
 
   policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [{
-    "Sid": "PlayersDbRead",
+    "Sid": "ConnectionsDbRead",
     "Effect": "Allow",
     "Action": [
         "dynamodb:BatchGet*",
@@ -36,22 +36,22 @@ resource "aws_iam_policy" "lambda_players_db_read" {
         "dynamodb:Get*",
         "dynamodb:Query"
     ],
-    "Resource": "${aws_dynamodb_table.players.arn}"
+    "Resource": "${aws_dynamodb_table.connections.arn}"
   }]
 }
 EOF
 }
 
-resource "aws_iam_policy" "lambda_players_db_write" {
-  name        = "${local.stack_details.stack_name_prefix}-lambda-players-db-write-${local.stack_details.stack_id}"
+resource "aws_iam_policy" "lambda_connections_db_write" {
+  name        = "${local.stack_details.stack_name_prefix}-lambda-connections-db-write-${local.stack_details.stack_id}"
   path        = "/"
-  description = "IAM policy for mutating the players DB from lambda"
+  description = "IAM policy for mutating the connections DB from lambda"
 
   policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [{
-    "Sid": "PlayersDbWrite",
+    "Sid": "ConnectionsDbWrite",
     "Effect": "Allow",
     "Action": [
         "dynamodb:BatchWrite*",
@@ -59,7 +59,7 @@ resource "aws_iam_policy" "lambda_players_db_write" {
         "dynamodb:PutItem",
         "dynamodb:DeleteItem"
     ],
-    "Resource": "${aws_dynamodb_table.players.arn}"
+    "Resource": "${aws_dynamodb_table.connections.arn}"
   }]
 }
 EOF

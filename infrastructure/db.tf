@@ -1,5 +1,5 @@
-resource "aws_dynamodb_table" "players" {
-  name           = "${local.stack_details.stack_name_prefix}-players-${local.stack_details.stack_id}"
+resource "aws_dynamodb_table" "connections" {
+  name           = "${local.stack_details.stack_name_prefix}-connections-${local.stack_details.stack_id}"
   billing_mode   = "PROVISIONED"
   read_capacity  = 20
   write_capacity = 20

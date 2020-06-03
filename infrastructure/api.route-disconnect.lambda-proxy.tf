@@ -2,7 +2,7 @@ module "disconnect_route_lambda_proxy" {
   source = "./modules/lambda-proxy"
 
   environment_variables = {
-    DYNAMOD_DB_TABLE_NAME = aws_dynamodb_table.players.id
+    DYNAMO_DB_TABLE_NAME = aws_dynamodb_table.connections.id
   }
   name             = "disconnect"
   default_route    = true
@@ -16,12 +16,12 @@ resource "aws_iam_role_policy_attachment" "disconnect_route_lambda_execute_api" 
   policy_arn = aws_iam_policy.lambda_execute_api.arn
 }
 
-resource "aws_iam_role_policy_attachment" "disconnect_route_lambda_players_db_read" {
+resource "aws_iam_role_policy_attachment" "disconnect_route_lambda_connections_db_read" {
   role       = module.disconnect_route_lambda_proxy.role_name
-  policy_arn = aws_iam_policy.lambda_players_db_read.arn
+  policy_arn = aws_iam_policy.lambda_connections_db_read.arn
 }
 
-resource "aws_iam_role_policy_attachment" "disconnect_route_lambda_players_db_write" {
+resource "aws_iam_role_policy_attachment" "disconnect_route_lambda_connections_db_write" {
   role       = module.disconnect_route_lambda_proxy.role_name
-  policy_arn = aws_iam_policy.lambda_players_db_write.arn
+  policy_arn = aws_iam_policy.lambda_connections_db_write.arn
 }

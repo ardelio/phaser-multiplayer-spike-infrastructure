@@ -1,19 +1,24 @@
 import AWS from 'aws-sdk';
+import { ILambdaEvent } from '../../types';
 
 const dynamoDbDocumentClient = new AWS.DynamoDB.DocumentClient();
 
-export const handler = async (event: any) => {
+export const handler = async (event: ILambdaEvent) => {
   const { connectionId } = event.requestContext;
-  const tableName = process.env.DYNAMOD_DB_TABLE_NAME as string;
+  const { DYNAMO_DB_TABLE_NAME: tableName } = process.env;
 
-  const deleteParams: AWS.DynamoDB.DocumentClient.DeleteItemInput = {
+  if (typeof tableName === 'undefined') {
+    throw new Error('DYNAMO_DB_TABLE_NAME is not defined in the environment');
+  }
+
+  const params: AWS.DynamoDB.DocumentClient.DeleteItemInput = {
     TableName: tableName,
     Key: {
       ConnectionId: connectionId,
       WorldId: 1
     }
   };
-  await dynamoDbDocumentClient.delete(deleteParams).promise();
+  await dynamoDbDocumentClient.delete(params).promise();
 
   return {
     statusCode: 200
