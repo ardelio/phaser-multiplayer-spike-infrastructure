@@ -1,5 +1,5 @@
 {
-  "name": "phaser-multiplayer-spike-api",
+  "name": "phaser-multiplayer-spike-infrastructure",
   "version": "1.0.0",
   "description": "",
   "private": true,
@@ -10,7 +10,8 @@
     "package": "(cp package.json package-lock.json .dist/ && cd .dist && npm i --only=prod && zip -r ../.package/package.zip *)",
     "deploy": "(cd infrastructure && terraform apply)",
     "deploy:approve": "(cd infrastructure && terraform apply -auto-approve)",
-    "destroy:approve": "(cd infrastructure && terraform destroy -auto-approve)"
+    "deploy:init": "(cd infrastructure && terraform init)",
+    "destroy": "(cd infrastructure && terraform destroy)"
   },
   "devDependencies": {
     "@types/node": "^14.0.6",
