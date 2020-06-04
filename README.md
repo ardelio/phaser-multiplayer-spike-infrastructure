@@ -2,6 +2,8 @@
 
 > ℹ️ This is the companion repository to the [Phaser Multiplayer Spike](https://github.com/ardelio/phaser-multiplayer-spike) repository.
 
+> ℹ️ This is a spike. Some effort has been taken to make the code somewhat readable, however, many things were not. For example: tests, domain modelling, abstraction.
+
 ## Overview
 
 This project provides a Websocket Service for use by the Phaser3 Game Client and supports the following behaviour:
