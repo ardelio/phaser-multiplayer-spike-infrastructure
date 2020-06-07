@@ -1,24 +1,21 @@
 import AWS from 'aws-sdk';
-import { ILambdaEvent } from '../../types';
+import ConnectionsTable from '../../ConnectionsTable';
+import GameCommunications from '../../GameCommunications';
 
-const dynamoDbDocumentClient = new AWS.DynamoDB.DocumentClient();
+const gameCommunications = new GameCommunications(new AWS.ApiGatewayManagementApi({ endpoint: process.env.API_ENDPOINT }));
+const connectionsTable = new ConnectionsTable(new AWS.DynamoDB.DocumentClient());
 
 export const handler = async (event: ILambdaEvent) => {
   const { connectionId } = event.requestContext;
-  const { DYNAMO_DB_TABLE_NAME: tableName } = process.env;
-
-  if (typeof tableName === 'undefined') {
-    throw new Error('DYNAMO_DB_TABLE_NAME is not defined in the environment');
-  }
-
-  const params: AWS.DynamoDB.DocumentClient.PutItemInput = {
-    TableName: tableName,
-    Item: {
-      ConnectionId: connectionId,
-      WorldId: 1
-    }
+  const worldId = 1;
+  const connectedMessage: IGameConnectedMessage = {
+    action: 'connected',
+    data: connectionId,
   };
-  await dynamoDbDocumentClient.put(params).promise();
+
+  const connectionIds = await connectionsTable.getWorldConnectionIds(worldId);
+  await connectionsTable.connected(worldId, connectionId);
+  await gameCommunications.postMessageToAll(connectionIds, connectedMessage);
 
   return {
     statusCode: 200

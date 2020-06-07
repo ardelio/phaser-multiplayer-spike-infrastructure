@@ -2,6 +2,7 @@ module "connect_route_lambda_proxy" {
   source = "./modules/lambda-proxy"
 
   environment_variables = {
+    API_ENDPOINT          = replace(aws_apigatewayv2_stage.dev_stage.invoke_url, "/^wss/", "https")
     DYNAMO_DB_TABLE_NAME = aws_dynamodb_table.connections.id
   }
   name             = "connect"

@@ -1,4 +1,4 @@
-export default interface ILambdaEvent {
+interface ILambdaEvent {
   requestContext: {
     connectionId: string;
   };

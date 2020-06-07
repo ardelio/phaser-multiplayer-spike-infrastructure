@@ -1,24 +1,21 @@
 import AWS from 'aws-sdk';
-import { ILambdaEvent } from '../../types';
+import ConnectionsTable from '../../ConnectionsTable';
+import GameCommunications from '../../GameCommunications';
 
-const dynamoDbDocumentClient = new AWS.DynamoDB.DocumentClient();
+const connectionsTable = new ConnectionsTable(new AWS.DynamoDB.DocumentClient());
+const gameCommunications = new GameCommunications(new AWS.ApiGatewayManagementApi({ endpoint: process.env.API_ENDPOINT }));
 
 export const handler = async (event: ILambdaEvent) => {
   const { connectionId } = event.requestContext;
-  const { DYNAMO_DB_TABLE_NAME: tableName } = process.env;
-
-  if (typeof tableName === 'undefined') {
-    throw new Error('DYNAMO_DB_TABLE_NAME is not defined in the environment');
+  const worldId = 1;
+  const disconnectedMessage: IGameDisconnectedMessage = {
+    action: 'disconnected',
+    data: connectionId,
   }
 
-  const params: AWS.DynamoDB.DocumentClient.DeleteItemInput = {
-    TableName: tableName,
-    Key: {
-      ConnectionId: connectionId,
-      WorldId: 1
-    }
-  };
-  await dynamoDbDocumentClient.delete(params).promise();
+  await connectionsTable.disconnected(worldId, connectionId);
+  const connectionIds = await connectionsTable.getWorldConnectionIds(worldId);
+  await gameCommunications.postMessageToAll(connectionIds, disconnectedMessage);
 
   return {
     statusCode: 200

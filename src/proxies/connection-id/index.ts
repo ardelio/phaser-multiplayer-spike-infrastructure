@@ -1,8 +1,6 @@
-import { ILambdaEvent } from "../../types";
-
 export const handler = async (event: ILambdaEvent) => {
   const { connectionId } = event.requestContext;
-  const connectonIdMessage: IConnectionIdMessage = {
+  const connectonIdMessage: IGameConnectionIdMessage = {
     action: 'connection_id',
     data: connectionId
   };
@@ -11,8 +9,3 @@ export const handler = async (event: ILambdaEvent) => {
     body: JSON.stringify(connectonIdMessage),
   };
 };
-
-interface IConnectionIdMessage {
-  action: string;
-  data: string;
-}
