@@ -31,17 +31,23 @@ As this project was a spike, it was built entirely in AWS using low cost, pay-fo
 
 The architecture can be visualised as:
 
-![Architecture Diagram](./assets/svg/architecture-diagram.png)
+![Architecture Diagram](./assets/svg/architecture-diagram.svg)
 
-The workflows can be visualised as:
+## Workflows
 
-- Connect to socket
+### Connect to socket
 
 ![Connect to Socket](./assets/svg/sequence-diagram.connect-route.svg)
 
-- Obtain the Connection ID
+### Obtain the Connection ID
 
 ![Obtain the Connection ID](./assets/svg/sequence-diagram.connection-id-route.svg)
+
+### Obtain current connections
+
+### Move
+
+### Disconnect from the socket
 
 ## Deployment
 
