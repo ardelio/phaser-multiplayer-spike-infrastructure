@@ -31,7 +31,7 @@ As this project was a spike, it was built entirely in AWS using low cost, pay-fo
 
 The architecture can be visualised as:
 
-![Architecture Diagram](./assets/svg/architecture-diagram.svg)
+![Architecture Diagram](./assets/svg/architecture-diagram.png)
 
 The workflows can be visualised as:
 

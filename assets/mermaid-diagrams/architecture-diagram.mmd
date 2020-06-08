@@ -1,8 +1,8 @@
 graph LR
-  GC["Game Client<br/>[HTML, JavaScript]<br/>(Browser)"]
+  GC["Game Client (Browser)"]
   subgraph "Phaser Multiplayer Spike Infrastructure"
-    WA["Websocket API<br/>[Lambda Proxy Integration]<br/>(API Gateway v2)"]
-    RH["Route Handler<br/>[NodeJS]<br/>(Lambda)"]
-    CT["Connections Table<br/>(DynamoDB)"]
+    WA["Websocket API (API Gateway v2)"]
+    RH["Route Handler (Lambda)"]
+    CT["Connections Table (DynamoDB)"]
   end
-  GC --socket--> WA --routes--> RH --read/write--> CT
+  GC--socket-->WA--routes-->RH--read/write-->CT
