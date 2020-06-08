@@ -1,0 +1,9 @@
+sequenceDiagram
+  participant GC as Game Client
+  participant WA as Websocket API
+  participant RH as Route Handler
+
+  GC->>WA: send connection_id action
+  WA->>RH: route to connection_id<br />route Handler
+  RH->>WA: return connectionId
+  WA->>GC: return connectionId

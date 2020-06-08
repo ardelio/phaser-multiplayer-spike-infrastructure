@@ -1,0 +1,13 @@
+sequenceDiagram
+  participant GC as Game Client
+  participant WA as Websocket API
+  participant RH as Route Handler
+  participant CT as Connections Table
+
+  GC->>WA: send $connect action
+  WA->>RH: route to connect<br />route Handler
+  RH->>CT: get all Connections
+  CT->>RH: connections
+  RH->>CT: save connections
+  RH->>WA: forward new connection<br />to all connections
+  WA->>GC: forward connected action
