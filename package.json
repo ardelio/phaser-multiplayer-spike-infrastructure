@@ -12,7 +12,7 @@
     "deploy:approve": "(cd infrastructure && terraform apply -auto-approve)",
     "deploy:init": "(cd infrastructure && terraform init)",
     "destroy": "(cd infrastructure && terraform destroy)",
-    "diagrams:create": "for filepath in $(pt -l '' assets); do npx mmdc --input \"$filepath\" --output \"./assets/svg/$(basename $filepath .mmd).svg\"; done"
+    "diagrams:create": "for filepath in $(pt -l '' assets/mermaid-diagrams); do npx mmdc --input \"$filepath\" --output \"./assets/svg/$(basename $filepath .mmd).svg\"; done"
   },
   "devDependencies": {
     "@mermaid-js/mermaid-cli": "^8.5.1-2",

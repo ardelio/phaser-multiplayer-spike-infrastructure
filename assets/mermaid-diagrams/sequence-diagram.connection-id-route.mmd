@@ -2,6 +2,7 @@ sequenceDiagram
   participant GC as Game Client
   participant WA as Websocket API
   participant RH as Route Handler
+  participant CT as Connections Table
 
   GC->>WA: send connection_id action
   WA->>RH: route to connection_id<br />route Handler
