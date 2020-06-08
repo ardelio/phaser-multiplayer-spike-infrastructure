@@ -4,10 +4,9 @@ sequenceDiagram
   participant RH as Route Handler
   participant CT as Connections Table
 
-  GC->>WA: send $connect action
-  WA->>RH: route to connect<br />route handler
+  GC->>WA: send movement action
+  WA->>RH: route to movement<br />route handler
   RH->>CT: get all Connections
   CT->>RH: connections
-  RH->>CT: save connections
-  RH->>WA: forward new connection<br />to all connections
-  WA->>GC: forward connected action
+  RH->>WA: forward movement<br />to all connections
+  WA->>GC: forward movement action

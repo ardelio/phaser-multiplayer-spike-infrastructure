@@ -35,7 +35,7 @@ The architecture can be visualised as:
 
 ## Workflows
 
-### Connect to socket
+### Connect to the socket
 
 ![Connect to Socket](./assets/svg/sequence-diagram.connect-route.svg)
 
@@ -43,11 +43,17 @@ The architecture can be visualised as:
 
 ![Obtain the Connection ID](./assets/svg/sequence-diagram.connection-id-route.svg)
 
-### Obtain current connections
+### Obtain the current connections
+
+![Obtain the current connections](./assets/svg/sequence-diagram.current-connections-route.svg)
 
 ### Move
 
+![Move](./assets/svg/sequence-diagram.movement-route.svg)
+
 ### Disconnect from the socket
+
+![Disconnect from the socket](./assets/svg/sequence-diagram.disconnect-route.svg)
 
 ## Deployment
 

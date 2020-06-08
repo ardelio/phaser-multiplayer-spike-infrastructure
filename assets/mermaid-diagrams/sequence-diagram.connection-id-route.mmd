@@ -5,6 +5,6 @@ sequenceDiagram
   participant CT as Connections Table
 
   GC->>WA: send connection_id action
-  WA->>RH: route to connection_id<br />route Handler
+  WA->>RH: route to connection_id<br />route handler
   RH->>WA: return connectionId
   WA->>GC: return connectionId
